@@ -27,10 +27,12 @@
         text_area.addEventListener('keyup', actualizar_caracteres);
     }
 
-    function limitar_caracteres() {
+    function limitar_caracteres(evento) {
         nCaracteres_actuales = text_area.value.length + 1;
-        if(nCaracteres_actuales > numero_max_caracteres)
+        if(nCaracteres_actuales > numero_max_caracteres){
+            evento.preventDefault();
             return false;
+        }     
         return true;
     }
 
