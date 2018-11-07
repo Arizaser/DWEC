@@ -85,10 +85,6 @@
                     operacionPosterior = valor;
                 }     
                 asignarOperaciones(operacionActual);
-                console.log(operacionActual);
-                console.log(operacionPosterior);
-                console.log(realizarOperacion);
-                console.log(nuevoValor);
                 if(realizarOperacion && !nuevoValor)
                     comprobarOperacion(inputMuestra.value);
                 nuevoValor = true;
