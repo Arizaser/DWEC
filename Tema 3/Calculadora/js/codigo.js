@@ -10,9 +10,10 @@
 {
     let inputMuestra;
     let valor1, valor2;
-    let sumar, restar, multiplicar, dividir, nuevoValor, realizarOperacion, primerNumero;
+    let sumar, restar, multiplicar, dividir, porcentaje, nuevoValor, realizarOperacion;
     let operacionActual = false;
     let operacionPosterior = false;
+    let primerNumero = true;
 
 
     function iniciar() {
@@ -68,15 +69,20 @@
                 inputMuestra.value = 0;
                 valor1 = 0;
                 valor2 = 0;
+                resetearOperadores();
+                operacionActual = false;
+                operacionPosterior = false;
+                primerNumero = true;
                 break;
             case "+":
             case "-":
             case "X":
             case "/":
-                if(!primerNumero){
+            case "%":
+                if(primerNumero){
                     valor1 = inputMuestra.value;
                     operacionPosterior = valor;
-                    primerNumero = true;
+                    primerNumero = false;
                 }
                 else{
                     valor2 = inputMuestra.value;
@@ -99,17 +105,20 @@
     }
 
     function comprobarOperacion(valor){
-        if (sumar || restar || multiplicar || dividir) {
+        if (sumar || restar || multiplicar || dividir || porcentaje) {
             valor2 = valor;
             calcularOperacion();
         }
     }
-
-    function asignarOperaciones(valor){
+    function resetearOperadores(){
         sumar = false;
         restar = false;
         multiplicar = false;
         dividir = false;
+        porcentaje = false;
+    }
+    function asignarOperaciones(valor){
+        resetearOperadores();
         switch(valor){
             case "+":
                 sumar = true;
@@ -123,6 +132,9 @@
             case "/":
                 dividir = true;
                 break;
+            case "%":
+                porcentaje = true;
+                break;
         }
     }
 
@@ -130,11 +142,13 @@
         if (sumar) {
             inputMuestra.value = parseFloat(valor1) + parseFloat(valor2);
         } else if (restar) {
-            inputMuestra.value = valor1 - valor2;
+            inputMuestra.value = parseFloat(valor1) - parseFloat(valor2);
         } else if (multiplicar) {
-            inputMuestra.value = valor1 * valor2;
+            inputMuestra.value = parseFloat(valor1) * parseFloat(valor2);
+        } else if(dividir){
+            inputMuestra.value = parseFloat(valor1) / parseFloat(valor2);
         } else {
-            inputMuestra.value = valor1 / valor2;
+            inputMuestra.value = (parseFloat(valor1) * parseFloat(valor2))/ 100;
         }
         valor1 = inputMuestra.value;
         valor2 = 0;
