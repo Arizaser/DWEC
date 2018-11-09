@@ -15,7 +15,7 @@
     }
 
     function comprobarDNI(){
-        let valorDNI = this.value.toUpperCase();
+        let valorDNI = this.value.toUpperCase().trim();
         let mensaje = "";
 
         if(valorDNI.length == 0)
