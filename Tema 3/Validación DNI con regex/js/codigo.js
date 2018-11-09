@@ -9,7 +9,7 @@
 
 {   
     let regexNIF = new RegExp("^([\\d]{8})[-\\s]*([A-Z(^IÑOU)])$");
-    var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+    let letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
     function iniciar() {
         document.getElementById("inputDNI").addEventListener("focusout",comprobarDNI);
     }
@@ -23,9 +23,7 @@
         else if (!regexNIF.test(valorDNI))
             mensaje = "Formato incorrecto";
         else{
-            let arrayNIF = regexNIF.exec(valorDNI);
-            let numeroDNI = arrayNIF[1];
-            let letraDNI = arrayNIF[2];
+            [,numeroDNI,letraDNI] = regexNIF.exec(valorDNI);
             if(letras[numeroDNI % 23] != letraDNI)
                 mensaje = "Letra incorrecta"
         }
