@@ -14,16 +14,17 @@
         informaError = document.getElementById("informaError");
         muestraNombre = document.getElementById("muestraNombre");
         muestraApellidos = document.getElementById("muestraApellidos");
-        document.getElementById("atras").addEventListener("click",function(){
+        document.getElementById("atras").addEventListener("click",function(event){
+            event.preventDefault();
             history.back();
         })
     }
 
     function mostrarInformacion() {
-        console.log("hola");
         try {
             let [,apellidos, , , nombre] = comprobarInformacionValida(this.value);
-            asignarInformacion(nombre, apellidos);
+            apellidos = apellidos.replace(/[ ]+/g," ");
+            asignarInformacion(nombre.trim(), apellidos.trim());
             limpiarEntradaDatos();
             agregarALaColeccion(nombre, apellidos);
 
@@ -44,13 +45,12 @@
 
     function comprobarInformacionValida(cadena) {
         if (!regexNombre.test(cadena))
-            throw "Error. Formato correcto: Cuadrado Perfecto"
+            throw new Error("Error. Formato correcto: Cuadrado Perfecto, Anacleto");
         return regexNombre.exec(cadena);
     }
 
     function agregarALaColeccion(nombre, apellidos) {
-        let persona = (nombre + " " + apellidos).trim();
-        console.log(persona);
+        let persona = (nombre+ " " + apellidos);
         if (collectionNombres.has(persona)) {
             informaError.innerHTML = "REPETIDO";
         } else

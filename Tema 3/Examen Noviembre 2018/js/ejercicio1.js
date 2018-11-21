@@ -8,7 +8,8 @@
         incrementarContador();
         mostrarContenido();
         document.getElementById("resetear").addEventListener("click",resetearContador);
-        document.getElementById("atras").addEventListener("click",function(){
+        document.getElementById("atras").addEventListener("click",function(event){
+            event.preventDefault();
             history.back();
         })
     }
@@ -33,11 +34,10 @@
     }
 
     function mostrarContenido(){
-        informacion.innerHTML = generaMensaje();
+        informacion.innerHTML = generaMensaje(localStorage.getItem("contador"));
     }
 
-    function generaMensaje(){
-        let contador = localStorage.getItem("contador");
+    function generaMensaje(contador){
         switch(contador){
             case "1":
                 return "Bienvenido a mi humilde morada. Esta es la primera vez que entras. Espero que vuelvas";
