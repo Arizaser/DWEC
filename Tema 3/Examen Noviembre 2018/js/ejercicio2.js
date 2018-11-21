@@ -22,15 +22,19 @@
 
     function mostrarInformacion() {
         try {
-            let [,apellidos, , , nombre] = comprobarInformacionValida(this.value);
-            apellidos = apellidos.replace(/[ ]+/g," ");
-            asignarInformacion(nombre.trim(), apellidos.trim());
+            let [apellidos, nombre] = comprobarInformacionValida(this.value);
+            asignarInformacion(nombre, apellidos);
             limpiarEntradaDatos();
             agregarALaColeccion(nombre, apellidos);
-
         } catch (e) {
-            informaError.innerHTML = e;
+            informaError.innerHTML = e.message;
+            limpiarDisplayInformacion();
         }
+    }
+
+    function limpiarDisplayInformacion(){
+        muestraNombre.innerHTML = "Nombre: ";
+        muestraApellidos.innerHTML = "Apellidos: ";
     }
 
     function limpiarEntradaDatos() {
@@ -46,7 +50,9 @@
     function comprobarInformacionValida(cadena) {
         if (!regexNombre.test(cadena))
             throw new Error("Error. Formato correcto: Cuadrado Perfecto, Anacleto");
-        return regexNombre.exec(cadena);
+        let [,apellidos, , , nombre] = regexNombre.exec(cadena);
+        apellidos = apellidos.replace(/[ ]+/g," ");
+        return [apellidos.trim(),nombre.trim()];
     }
 
     function agregarALaColeccion(nombre, apellidos) {
