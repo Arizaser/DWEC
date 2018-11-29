@@ -8,7 +8,11 @@
         for (let i = 0; i < botones.length; i++) {
             botones[i].addEventListener("click", calcularValores);
         }
-        
+       // document.addEventListener("contextmenu", function () {
+         //   return false
+        //});
+        document.oncontextmenu = function(){return false};
+
     }
 
     function calcularValores() {
@@ -36,8 +40,9 @@
     }
 
     function crearPartida(filas, columnas, minas) {
-        if(!cronometro)
+        if (!cronometro)
             crearCronometro();
+        buscaminas.crearMarcadorBanderas();
         buscaminas.inicializar(filas, columnas, minas);
         buscaminas.crearTableroGrafico();
         buscaminas.crearTableroArray();
@@ -49,7 +54,7 @@
         setInterval(mostrarReloj, 1000);
     }
 
-    function crearCronometro(){
+    function crearCronometro() {
         let cronometroElement = document.createElement("p");
         cronometroElement.id = "cronometro";
         contenedorBuscaminas.appendChild(cronometroElement);
