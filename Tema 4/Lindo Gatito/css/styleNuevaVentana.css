@@ -1,0 +1,31 @@
+body{
+    font-family: 'Patrick Hand', cursive;
+}
+h1{
+    text-align: center;
+}
+#informacionGato{
+    font-size: 24px;
+}
+#imagenGato{
+    border: 1px solid black;
+    height: 150px;
+    width: 150px;
+}
+main{
+    display: flex;
+    justify-content: space-around;
+}
+#panelDeControl{
+    display: grid;
+    
+}
+#panelDeControl button{
+    font-family: 'Patrick Hand', cursive;
+    font-size: 24px;
+}
+#informacionActual{
+    margin-top: 32px;
+    text-align: center;
+    font-size: 24px;
+}

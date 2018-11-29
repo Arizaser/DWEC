@@ -1,0 +1,25 @@
+body{
+    font-family: 'Patrick Hand', cursive;
+}
+h1{
+    text-align: center;
+}
+p{
+    margin: 24px auto;
+    text-align: center;
+    font-size: 24px;
+}
+
+#muestraError{
+    text-align: center;
+    color: red;
+}
+
+#creadorDeGatos{
+    text-align: center;
+}
+#crearGato{
+    margin: 8px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 20px;
+}
