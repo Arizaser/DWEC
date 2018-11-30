@@ -19,7 +19,7 @@ function mostrarReloj() {
 
     minutos = minutos.toString();
     horas = horas.toString();
-
+    
     if (segundos.length == 1)
         segundos = 0 + "" + segundos;
     if (minutos.length == 1)

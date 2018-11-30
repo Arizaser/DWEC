@@ -46,7 +46,7 @@
         buscaminas.inicializar(filas, columnas, minas);
         buscaminas.crearTableroGrafico();
         buscaminas.crearTableroArray();
-        buscaminas.posicionarBombasYNumeros();
+        buscaminas.crearBombasYNumeros();
     }
 
     function iniciar() {
