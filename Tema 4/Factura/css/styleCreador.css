@@ -1,0 +1,51 @@
+body{
+    font-family: 'Patrick Hand', cursive;
+}
+#informacionEmpresaCliente{
+    display: flex;
+    justify-content: space-around;
+}
+
+#informacionEmpresa{
+    margin: 8px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16px;
+    border: 1px solid black;
+    width: 40%;
+    padding: 8px;
+}
+#informacionCliente{
+    min-height: 200px;
+    margin: 8px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16px;
+    border: 1px solid black;
+    width: 40%;
+    padding: 8px;
+}
+#informacionCliente input{
+    margin-bottom: 16px;
+}
+#tituloInformacion{
+    text-align: center;
+    font-style: italic;
+}
+#tablaProductos {
+    border: 1px solid black;
+}
+#productos, #botones{
+    display: flex;
+    justify-content: center;
+
+}
+#muestraError{
+    text-align: center;
+    color: red;
+}
+#tablaTotal{
+    margin: 8px auto;
+    border: 1px solid black;
+}
+#tablaTotal td{
+    border: 1px solid black;
+}

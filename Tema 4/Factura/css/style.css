@@ -1,0 +1,35 @@
+body{
+    font-family: 'Patrick Hand', cursive;
+}
+h1{
+    text-align: center;
+}
+p{
+    margin: 24px auto;
+    text-align: center;
+    font-size: 24px;
+}
+
+#muestraError{
+    text-align: center;
+    color: red;
+}
+
+#crearEmpresa{
+    text-align: center;
+    margin: 8px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 20px;
+}
+#crearEmpresa label{
+    text-align: center;
+    margin: 8px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 20px;
+}
+#crearEmpresa button{
+    margin: 8px;
+    text-align: center;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 20px;
+}
