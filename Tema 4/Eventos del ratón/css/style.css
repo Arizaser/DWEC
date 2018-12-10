@@ -1,0 +1,11 @@
+body{
+    font-family: 'Patrick Hand', cursive;
+    text-align: center;
+}
+main{
+    display: flex;
+    flex-wrap: wrap;
+}
+canvas{
+    margin: 8px;
+}
