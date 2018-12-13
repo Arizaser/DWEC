@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Formulario completito</title>
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
+</head>
+
+<body>
+    <noscript>
+        Tienes JavaScript deshabilitado. Habilítelo para ver la página correctamente.
+    </noscript>
+    <h1>Formulario completito por José Rafael Álvarez Espino</h1>
+    <main>
+        <input type="text" id="nombre" expresion="nombre" placeholder="Nombre"><br>
+        <span id="errornombre"></span><br>
+
+        <input type="text" id="edad" expresion="edad" placeholder="Edad"><br>
+        <span id="erroredad"></span>
+
+        <div id="inputSexo">
+            <p id="parrafoSexo">Sexo</p>
+            <input type="radio" name="sexo" value="Hombre"><label>Hombre</label>
+            <input type="radio" name="sexo" value="Mujer"><label>Mujer</label><br>
+            <span id="errorsexo"></span>
+        </div>
+        <br>
+        <input type="text" id="DNI" expresion="dni" placeholder="DNI"><br>
+        <span id="errorDNI"></span><br>
+
+        <input type="text" id="email" expresion="email" placeholder="Correo electrónico"><br>
+        <span id="erroremail"></span><br>
+
+        <p id="spanFechaNacimiento"></p>
+        <input type="text" id="fechaNacimiento" expresion="fecha" placeholder="Fecha de Nacimiento"><br>
+        <span id="errorfechaNacimiento"></span><br>
+
+        <input type="number" id="telefono" expresion="telefono" placeholder="Teléfono"><br>
+        <span id="errortelefono"></span><br>
+
+        <input type="text" id="cuentaCorriente" expresion="cuentaCorriente" placeholder="Cuenta corriente"><br>
+        <span id="errorcuentaCorriente"></span><br>
+
+        <input type="text" id="direccionWeb"  expresion="direccionWeb" placeholder="Dirección web"><br>
+        <span id="errordireccionWeb"></span><br>
+
+        <input type="checkbox" id="terminos"><label> Acepto los términos y condiciones</label><br>
+        <span id="errorterminos"></span><br>
+        <button id="enviar">Enviar</button>
+    </main>
+</body>
+
+</html>
