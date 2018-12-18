@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Examen diciembre José Rafael Álvarez Espino</title>
+    <script src="js/main.js"></script>
+    <script src="js/reserva.js"></script>
+</head>
+
+<body>
+    <noscript>
+        Por favor, habilite javascript para ver correctamente la web.
+    </noscript>
+    <h1>Examen Diciembre de 2018. José Rafael Álvarez Espino</h1>
+    <form action="">
+        <label for="">Nombre completo: </label><input type="text" name="" id="nombre" expresion="nombre"><span id="errornombre"></span><br>
+        <label for="">Correo electrónico: </label><input type="text" name="" id="correo" expresion="correo"><span id="errorcorreo"></span><br>
+        <label for="">Fecha: </label><input type="text" name="" id="fecha" expresion="fecha"><span id="errorfecha"></span><br>
+        <label for="">Hora de llegada: </label><input type="text" name="" id="hora" expresion="hora"><span id="errorhora"></span><br>
+        <label for="">Numero de noches: </label><input type="text" name="" id="noches" expresion="noches"><span id="errornoches"></span><br>
+        <label for="">Numero de personas: </label><input type="text" name="" id="personas" expresion="personas"><span
+            id="errorpersonas"></span><br>
+        <fieldset>
+            <legend>Servicio de restaurante:</legend>
+            <input type="checkbox" name="desayuno" id="desayuno"><label for="desayuno">Desayuno</label><br>
+            <input type="checkbox" name="almuerzo" id="almuerzo"><label for="almuerzo">Almuerzo</label><br>
+            <input type="checkbox" name="cena" id="cena"><label for="cena">Cena</label><br>
+        </fieldset>
+        <fieldset>
+            <legend>Edad del cliente:</legend>
+            <input type="radio" name="edad" edad="Menos de 20" id="edad1" checked><label for="edad1">Menos de 20</label><br>
+            <input type="radio" name="edad" edad="Entre 20 y 40" id="edad2"><label for="edad2">Entre 20 y 40</label><br>
+            <input type="radio" name="edad" edad="Más de 40" id="edad3"><label for="edad3">Más de 40</label><br>
+            <span id="errorEdad"></span>
+        </fieldset>
+
+        <button id="enviar">Enviar reserva</button>
+        <p id="informacionReserva"></p>
+    </form>
+</body>
+
+</html>
