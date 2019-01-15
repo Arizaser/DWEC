@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Web de ejemplos</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <noscript>Tienes javascript deshabilitado, por favor, habiítelo para ver la página correctamente.</noscript>
+    <h3>Distintas formas de acceder al atributo checked. Compruébalo en las distintas plataformas, tanto con input como
+        con radio buttons
+    </h3>
+    <p>Con :checked</p>
+    <input type="radio" name="radioButton" id="radioButton1">
+    <input type="radio" name="radioButton" id="radioButton2">
+    <p id="informacion1"></p>
+    <p id="informacion2"></p>
+    <h3>De tres 'input type="checkbox"' que te deshabilite 2 al seleccionar una de ellas</h3>
+    <input type="checkbox" id="checkbox1"> <input type="checkbox" id="checkbox2"> <input type="checkbox" id="checkbox3">
+    <h3>Asociar dintintos eventos mediante .on()</h3>
+    <p id="ejemploOn">Si me haces click o pasas el ratón por encima mostraré un mensaje en consola.</p>
+    <h3>Indica los eventos estándares en el DOM</h3>
+    <ul>
+        <li>Eventos relacionados con el ratón: click() dblclick()
+            hover()
+            mousedown()
+            mouseup()
+            mouseenter()
+            mouseleave()
+            mousemove()
+            mouseout()
+            mouseover()
+            toggle()</li>
+        <li>Eventos relacionados con el teclado: keydown()
+            keypress()
+            keyup()
+        </li>
+        <li>Eventos combinados teclado o ratón: focusin()
+            focusout()
+            focus()
+        </li>
+    </ul>
+    <h3>Los atributos pageX, pageY, currentTarget, timeStamp... ¿A qué objeto pertenecen? Demuestra su uso</h3>
+    <p>Pertenecen al objeto evento. Abajo se demuestra su uso.</p>
+    <p id="coordenadas">Aquí mostraré las coordenadas</p>
+    <h3>Diferencia entre .on(), .live(). bind() y .delegate()</h3>
+    <ul>
+        <li>.bind(): Une el evento que queremos activar con los elementos actuales que tenemos en la página. No se une al DOM, por tanto si, en tiempo de ejecución, creamos un nuevo elemento, dicho elemento, no responderá ante ese evento y no tendrá acción asociada alguna.</li>
+        <li>.live() y .delegate(): Une el evento que queremos activar con los elementos que coinciden con el selector, ahora o en el futuro. Este evento sí se une al DOM, por tanto si, en tiempo de ejecución, creamos un nuevo elemento que responde a las reglas de eventos ya asignadas con live() o delegate(), el nuevo elemento responderá ante ese evento. Estos dos eventos están deprecated.</li>
+        <li>.on(): Sustituye a los antiguos .live() y .delegate() mencionados anteriormente.</li>
+    </ul>
+</body>
+
+</html>
