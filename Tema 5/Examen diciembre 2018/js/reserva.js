@@ -64,7 +64,6 @@ Reserva.prototype.calcularDiasRestantes = function () {
     return Math.ceil((this.fecha.getTime() - new Date().getTime())/(1000*60*60*24));    
 }
 
-Reserva.prototype
 Reserva.prototype.mostrar = function() {
     let ventana = open("","","height=300px;width=200px");
     let mensaje = `<!DOCTYPE html>
