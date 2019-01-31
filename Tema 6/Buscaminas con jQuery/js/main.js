@@ -245,18 +245,21 @@
     let $contenedorBuscaminas;
     let $muestraFinal;
     let $marcadorBanderas;
+    let casillasMostradas = true;
     $(function () {
         $muestraFinal = $("#muestraFinal");
         $contenedorBuscaminas = $("#contenedorBuscaminas");
         $("button").click(function (e) {
             e.preventDefault();
+            if(!casillasMostradas)
+                return;
             let [filas, columnas] = init($(this).prop("id"));
             if (filas && columnas) {
                 eliminarTableroSiExiste();
                 $muestraFinal.hide();
-                if(!cronometro){
+                if(!cronometro)
                     crearCronometro();
-                }
+                buscaminas.pararCronometroSiEstaActivo();
                 resetearCronometro();
                 crearMarcadorBanderas();
                 crearTableroGrafico(filas, columnas);
@@ -314,6 +317,7 @@
         let $casilla;
         let arrayCasillas = buscaminas.casillasAMostrar;
         let clase = (buscaminas.partidaFinalizada && buscaminas.casillasPorDescubrir != 0) ? "casillaConBomba" : "casillaDescubierta";
+        casillasMostradas = false;
         for (let i = 0; i < arrayCasillas.length; i++) {
             setTimeout(function () {
                 $casilla = $("#" + arrayCasillas[i][0] + "-" + arrayCasillas[i][1]);
@@ -326,6 +330,10 @@
         }
         buscaminas.casillasAMostrar = [];
         comprobarFinalPartida(arrayCasillas.length * 50 + 200);
+        setTimeout(function(){
+            casillasMostradas = true;
+        }, arrayCasillas.length * 50 + 250);
+
     }
 
     function mostrarBandera(fila, columna) {
