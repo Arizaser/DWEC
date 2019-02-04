@@ -23,7 +23,7 @@
 
     $inputs.blur(function () {
       $inputActual = $(this);
-      patron = $inputActual.prop("id");
+      patron = $inputActual.attr("tipo");
       if (!patrones[patron][0].test($inputActual.val())) {
         $(this).css(estilos);
         inputsErroneos.push($inputActual);
