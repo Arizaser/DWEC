@@ -39,18 +39,20 @@ p{
     transition: 1.5s;
 }
 .casillaConBomba{
-    background-color : red;
+    background: #F96546 url(../images/bomba.png) no-repeat center;
+}
+.casillaAlrededor{
+    background-color: rgb(80, 80, 245);
 }
 #contenedorBuscaminas{
     position: relative;
 }
 #muestraFinal{
-    background-color: rgb(255, 72, 0);
+    background-color: #F96546;
     width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
-    
     margin: 8px auto;
     position: absolute;
     top: 35%;
