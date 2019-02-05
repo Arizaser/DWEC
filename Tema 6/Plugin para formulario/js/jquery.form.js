@@ -16,7 +16,7 @@
 
     $.extend(estilos, estilos2);
 
-    let $inputs = $(":input").not(":submit");
+    let $inputs = $(":input").not(":submit",$(this));
     let inputsErroneos = [];
     let $inputActual;
     let patron;
@@ -39,9 +39,9 @@
 
     $inputs.focus(function () {
       $(this).css({
-        color: "",
-        background: "",
-        border: "1px solid black"
+        color: "initial",
+        background: "initial",
+        border: "initial"
       });
 
     });
