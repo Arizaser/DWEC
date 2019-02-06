@@ -381,7 +381,7 @@
         let clase, duracion;
         if (buscaminas.partidaFinalizada && buscaminas.casillasPorDescubrir != 0) {
             clase = "casillaConBomba";
-            duracion = 200;
+            duracion = 30;
         } else {
             clase = "casillaDescubierta";
             duracion = 50;
@@ -390,7 +390,7 @@
         for (let i = 0; i < arrayCasillas.length; i++) {
             setTimeout(function () {
                 $casilla = obtenerCasilla(arrayCasillas[i][0], arrayCasillas[i][1]);
-                $casilla.fadeIn(100, function () {
+                $casilla.fadeIn(i * duracion + 100, function () {
                     $(this).addClass(clase);
                     if (arrayCasillas[i][2] !== 0 && arrayCasillas[i][2] !== "x")
                         $(this).text(arrayCasillas[i][2]);
@@ -425,7 +425,7 @@
             let color;
             if (buscaminas.casillasPorDescubrir === 0) {
                 $("#textoFinal").text("¡Enhorabuena, has ganado!");
-                efecto = "fold";
+                efecto = "puff";
                 color = "#25D366"
             } else {
                 $("#textoFinal").text("¡Has perdido al pulsar una mina!");
