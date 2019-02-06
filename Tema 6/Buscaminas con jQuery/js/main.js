@@ -53,8 +53,6 @@
         mostrar() {
             console.log("Tablero con minas");
             console.table(this.tablero);
-            console.log("Tablero que ve el usuario");
-            console.table(this.tablero2);
         },
         marcar(fila, columna) {
             if (buscaminas.partidaFinalizada)
@@ -333,6 +331,7 @@
                 mostrarBandera(i, j);
                 break;
             case 3:
+            case 4:
                 despejar(i, j);
                 if (buscaminas.casillasAlrededor.length !== 0)
                     enfatizarCasillasAlrededor(obtenerCasilla(i, j));
