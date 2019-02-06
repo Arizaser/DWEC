@@ -372,6 +372,7 @@
             });
             casillaPulsada.off("mouseup mouseleave");
         });
+        buscaminas.casillasAlrededor = [];
     }
 
     function mostrarCasillas() {
