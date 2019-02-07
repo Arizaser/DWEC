@@ -239,7 +239,7 @@
         },
     }
 
-    var init = function (dificultad) {
+    function init (dificultad) {
         switch (dificultad) {
             case "facil":
                 buscaminas.init(8, 8, 10);
@@ -255,20 +255,19 @@
         }
     }
 
-    var mostrar = function () {
+    function mostrar() {
         buscaminas.mostrar();
     }
-    var picar = function (fila, columna) {
+    function picar (fila, columna) {
         console.log(buscaminas.picar(fila, columna));
 
     }
-    var marcar = function (fila, columna) {
+    function marcar (fila, columna) {
         console.log(buscaminas.marcar(fila, columna));
 
     }
-    var despejar = function (fila, columna) {
+    function despejar (fila, columna) {
         console.log(buscaminas.despejar(fila, columna));
-
     }
 
     let $contenedorBuscaminas;
