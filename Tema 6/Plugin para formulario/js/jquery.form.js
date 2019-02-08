@@ -16,7 +16,7 @@
   $.fn.validar = function (estilos2) {
     let estilos = {
       color: "#ff0000",
-      backgroundcolor: "#ffDEDE",
+      "background-color": "#ffDEDE",
       border: "2px solid #ffD3D7"
     };
 
