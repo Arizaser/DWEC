@@ -1,0 +1,30 @@
+body{
+    font-family: 'Patrick Hand', cursive;
+    text-align: center;
+}
+h1{
+    text-align: center;
+}
+input{
+    height: 36px;
+    padding: 16px;
+    font-weight: 400;
+    font-size: 20px;
+}
+button{
+    margin: 8px;
+    height: 36px;
+    padding: 8px;
+    font-weight: 400;
+    font-size: 20px;
+}
+#muestraEstados, #muestraFichero{
+    width: 30%;
+    min-height: 100px;
+    max-height: 220px;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+#muestraFichero{
+    overflow: scroll;
+}
