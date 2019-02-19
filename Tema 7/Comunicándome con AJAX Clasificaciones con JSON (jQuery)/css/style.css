@@ -1,6 +1,26 @@
 body{
     font-family: 'Patrick Hand', cursive;
+    text-align: center;
 }
 h1{
     text-align: center;
+}
+
+button{
+    background-color: rgb(252, 106, 39);
+    padding: 16px;
+    font-size: 22px;
+    text-align: center;
+    margin: 16px;
+}
+#contenedorInformacion div{
+    margin: 16px;
+}
+#contenedorInformacion div select{
+    margin: 16px;
+    padding: 16px;
+    font-size: 22px;
+}
+#descripcion{
+    font-size: 22px;
 }
