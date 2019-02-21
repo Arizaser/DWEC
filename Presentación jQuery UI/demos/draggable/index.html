@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Draggable</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <style>
+        * {
+            font-family: "Roboto", sans-serif;
+        }
+
+        div {
+            display: inline-block;
+            width: 100px;
+            padding: 15px;
+        }
+
+        .draggable {
+            padding: 15px;
+            margin: 0 10px 10px 0;
+        }
+
+        .ui-widget-header p,
+        .ui-widget-content p {
+            margin: 0;
+        }
+
+        #containment-wrapper {
+            width: 95%;
+            border: 2px solid #ccc;
+            display: flex;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <h2>Elementos movibles</h2>
+    <div id="draggable" class="ui-widget-content">
+        <p>Drag me around</p>
+    </div>
+    <h3>Mover elementos dentro de otro:</h3>
+    <div id="containment-wrapper">
+        <div id="draggable2" class="draggable ui-widget-content">
+            <p>I'm contained within the box</p>
+        </div>
+
+        <div style="height: 200px;" class="draggable ui-widget-content">
+            <p id="draggable3" class="ui-widget-header">I'm contained within my parent<br /> containment: "parent"</p>
+
+        </div>
+    </div>
+    <h2>Bloquear o permitir mover desde subelementos</h2>
+    <div id="draggable4" class="ui-widget-content">
+        <p class="ui-widget-header">I can be dragged only by this handle</p>
+    </div>
+
+    <div id="draggable5" class="ui-widget-content">
+        <p>You can drag me around&hellip;</p>
+        <p class="ui-widget-header">&hellip;but you can't drag me by this handle.</p>
+    </div>
+</body>
+
+</html>

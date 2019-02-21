@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Widgets en jqueryUI</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+    <script src="tabs.js"></script>
+
+</head>
+
+<body>
+    <h1>Tabs</h1>
+    <h2>Ejemplo 1: Tabs normales y colapsables</h2>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Tab 1</a></li>
+            <li><a href="#tabs-2">Tab 2</a></li>
+            <li><a href="#tabs-3">Tab 3</a></li>
+        </ul>
+        <div id="tabs-1">
+            <p>Contenido de tab 1</p>
+        </div>
+        <div id="tabs-2">
+            <p>Contenido de tab 2</p>
+        </div>
+        <div id="tabs-3">
+            <p>Contenido de tab 3</p>
+        </div>
+    </div>
+
+    <h2>Ejemplo 2: Tabs con ajax y mouseover</h2>
+    <div id="tabs2">
+        <ul>
+            <li><a href="#tabs2-1">Tab 1 (Precargada)</a></li>
+            <li><a href="tab2.txt">Tab 2</a></li>
+            <li><a href="tab3.txt">Tab 3</a></li>
+        </ul>
+        <div id="tabs2-1">
+            <p>Contenido de tab 1</p>
+        </div>
+    </div>
+
+    <h2>Ejemplo 3: Uso en conjunto de los anteriores ejemplos más sortable</h2>
+    <div id="tabs3">
+        <ul>
+            <li><a href="tab1.txt">Tab 1</a></li>
+            <li><a href="tab2.txt">Tab 2</a></li>
+            <li><a href="tab3.txt">Tab 3</a></li>
+        </ul>
+    </div>
+
+
+</body>
+
+</html>

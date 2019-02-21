@@ -1,0 +1,12 @@
+div {
+    width: 100px;
+    height: 100px;
+    background-color: #ccc;
+}
+.grande{
+    width: 200px;
+    height: 200px;
+}
+.azul {
+    background-color: rgb(38, 38, 253);
+}

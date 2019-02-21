@@ -1,0 +1,1 @@
+<p>Este contenido ha sido obtenido mediante ajax para la tab 2<p>
