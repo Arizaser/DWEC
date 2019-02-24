@@ -277,19 +277,20 @@
     let $contenedorBuscaminas;
     let $muestraFinal;
     let $marcadorBanderas;
-    let casillasMostradas = true;
+    let cambiarNivel = true;
     $(function () {
         $muestraFinal = $("#muestraFinal");
         $contenedorBuscaminas = $("#contenedorBuscaminas");
         $("button").click(function (e) {
             e.preventDefault();
-            if (!casillasMostradas)
+            if (!cambiarNivel)
                 return;
+            setPuedeCambiarNivel(false);
             let [filas, columnas] = init($(this).prop("id"));
             if (filas && columnas) {
                 eliminarTableroSiExiste();
                 $muestraFinal.hide();
-                if(!cronometro)
+                if (!cronometro)
                     crearCronometro();
                 buscaminas.pararCronometroSiEstaActivo();
                 resetearCronometro();
@@ -318,7 +319,9 @@
             $tabla.append($fila);
         }
         $contenedorBuscaminas.append($tabla);
-        $("#tablero").show("bounce");
+        $("#tablero").show("slide", function () {
+            setPuedeCambiarNivel(true);
+        });
     }
 
     function clickACasilla(i, j) {
@@ -381,27 +384,13 @@
     function mostrarCasillas() {
         let $casilla;
         let arrayCasillas = buscaminas.casillasAMostrar;
-        let clase, duracion,efectoSecundario;
-        if (buscaminas.partidaFinalizada && buscaminas.casillasPorDescubrir != 0) {
-            clase = "casillaConBomba";
-            duracion = 150;
-            efectoSecundario = {
-                "transform": "rotate(360deg)",
-                "transition-duration": "1s"
-            };
-        } else {
-            clase = "casillaDescubierta";
-            duracion = 50;
-            efectoSecundario = {
-                "transform": "rotateY(360deg)",
-                "transition-duration": "1s"
-            };
-        }
+        let [clase, duracion, efectoSecundario] = obtenerEfectosCasillas();
+
         longitudArrayCasillas = arrayCasillas.length;
-        setCasillasMostradas(false);
+        setPuedeCambiarNivel(false);
         for (let i = 0; i < longitudArrayCasillas; i++) {
             $casilla = obtenerCasilla(arrayCasillas[i][0], arrayCasillas[i][1]);
-            $casilla.delay(i * duracion).addClass(clase, duracion, "easeInOutBounce",function(){
+            $casilla.delay(i * duracion).addClass(clase, duracion, "easeInOutBounce", function () {
                 $(this).css(efectoSecundario);
             });
             if (arrayCasillas[i][2] !== 0 && arrayCasillas[i][2] !== "x")
@@ -410,19 +399,32 @@
         buscaminas.casillasAMostrar = [];
         comprobarFinalPartida(arrayCasillas.length * duracion + 500);
         setTimeout(function () {
-            setCasillasMostradas(true)
+            setPuedeCambiarNivel(true)
         }, longitudArrayCasillas * duracion + 1500);
     }
 
-    function setCasillasMostradas(valor) {
-        casillasMostradas = valor
+    function obtenerEfectosCasillas() {
+        if (buscaminas.partidaFinalizada && buscaminas.casillasPorDescubrir != 0)
+            return ["casillaConBomba", 150, {
+                "transform": "rotate(360deg)",
+                "transition-duration": "0.3s"
+            }]
+        else
+            return ["casillaDescubierta", 50, {
+                "transform": "rotateY(360deg)",
+                "transition-duration": "0.5s"
+            }]
+    }
+
+    function setPuedeCambiarNivel(valor) {
+        cambiarNivel = valor
     }
 
     function mostrarBandera(fila, columna) {
         if (buscaminas.tablero2[fila][columna] == "B")
-            obtenerCasilla(fila, columna).addClass("casillaConBandera",300,"easeInOutBounce");
+            obtenerCasilla(fila, columna).addClass("casillaConBandera", 300, "easeInOutBounce");
         else
-            obtenerCasilla(fila, columna).removeClass("casillaConBandera",300,"easeInBack");
+            obtenerCasilla(fila, columna).removeClass("casillaConBandera", 300, "easeInBack");
         $marcadorBanderas.text("Banderas disponibles: " + buscaminas.banderas);
     }
 
@@ -433,7 +435,7 @@
     function comprobarFinalPartida(tiempo) {
         if (buscaminas.partidaFinalizada) {
             buscaminas.pararCronometroSiEstaActivo();
-            
+
             let efecto;
             let color;
             if (buscaminas.casillasPorDescubrir === 0) {
