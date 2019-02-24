@@ -312,7 +312,7 @@
                 $celda.prop("id", i + "-" + j);
                 $celda.addClass("casillaSinDescubrir");
                 $celda.mousedown(function (event) {
-                    clickACasilla(i, j);
+                    clickACasilla(i, j, event);
                 });
                 $fila.append($celda);
             }
@@ -324,7 +324,7 @@
         });
     }
 
-    function clickACasilla(i, j) {
+    function clickACasilla(i, j, event) {
         if (!buscaminas.cronometro)
             buscaminas.cronometro = setInterval(mostrarReloj, 1000);
         event.preventDefault();
