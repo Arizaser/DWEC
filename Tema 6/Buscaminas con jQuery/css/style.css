@@ -8,6 +8,7 @@ h1{
     margin: 24px auto;
     text-align: center;
     font-size: 24px;
+    display: none;
 }
 p{
     margin: 24px auto;
@@ -29,6 +30,7 @@ p{
     background-color: #9F1C01;
     width : 45px;
     height : 43px;
+    transition: 1.5s;
 }
 .casillaDescubierta{
     background-color : #DBBDB7;
@@ -58,4 +60,5 @@ p{
     top: 35%;
     left: 37.5%;
     display: none;
+    z-index: 9999;
 }

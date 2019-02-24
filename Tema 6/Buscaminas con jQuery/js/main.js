@@ -89,7 +89,7 @@
                     }
                     break;
                 case "x":
-                    mostrarTodasLasMinas();
+                    obtenerTodasLasMinas(fila, columna);
                     return "¡Has perdido al pulsar una mina!";
                 default:
                     if (buscaminas.tablero2[fila][columna] != -1) {
@@ -119,10 +119,11 @@
                 }
             }
 
-            function mostrarTodasLasMinas() {
+            function obtenerTodasLasMinas(fila, columna) {
+                buscaminas.casillasAMostrar.push([fila, columna, obtenerValorCasilla(fila, columna)]);
                 for (let i = 0; i < buscaminas.tablero.length; i++) {
                     for (let j = 0; j < buscaminas.tablero[i].length; j++) {
-                        if (buscaminas.tablero[i][j] == "x") {
+                        if (buscaminas.tablero[i][j] == "x" && buscaminas.tablero2[i][j] != "B") {
                             buscaminas.tablero2[i][j] = "x";
                             buscaminas.casillasAMostrar.push([i, j, obtenerValorCasilla(i, j)]);
                         }
@@ -239,7 +240,7 @@
         },
     }
 
-    function init (dificultad) {
+    function init(dificultad) {
         switch (dificultad) {
             case "facil":
                 buscaminas.init(8, 8, 10);
@@ -258,15 +259,18 @@
     function mostrar() {
         buscaminas.mostrar();
     }
-    function picar (fila, columna) {
+
+    function picar(fila, columna) {
         console.log(buscaminas.picar(fila, columna));
 
     }
-    function marcar (fila, columna) {
+
+    function marcar(fila, columna) {
         console.log(buscaminas.marcar(fila, columna));
 
     }
-    function despejar (fila, columna) {
+
+    function despejar(fila, columna) {
         console.log(buscaminas.despejar(fila, columna));
     }
 
@@ -285,7 +289,7 @@
             if (filas && columnas) {
                 eliminarTableroSiExiste();
                 $muestraFinal.hide();
-                if (!cronometro)
+                if(!cronometro)
                     crearCronometro();
                 buscaminas.pararCronometroSiEstaActivo();
                 resetearCronometro();
@@ -314,6 +318,7 @@
             $tabla.append($fila);
         }
         $contenedorBuscaminas.append($tabla);
+        $("#tablero").show("bounce");
     }
 
     function clickACasilla(i, j) {
@@ -342,8 +347,7 @@
 
     function eliminarTableroSiExiste() {
         let $tablero = $("#tablero");
-        console.log($tablero.css("heigth"));
-        if ($tablero.length)
+        if ($tablero)
             $tablero.remove();
         if ($marcadorBanderas)
             $marcadorBanderas.remove();
@@ -377,38 +381,48 @@
     function mostrarCasillas() {
         let $casilla;
         let arrayCasillas = buscaminas.casillasAMostrar;
-        let clase, duracion;
+        let clase, duracion,efectoSecundario;
         if (buscaminas.partidaFinalizada && buscaminas.casillasPorDescubrir != 0) {
             clase = "casillaConBomba";
-            duracion = 30;
+            duracion = 150;
+            efectoSecundario = {
+                "transform": "rotate(360deg)",
+                "transition-duration": "1s"
+            };
         } else {
             clase = "casillaDescubierta";
             duracion = 50;
+            efectoSecundario = {
+                "transform": "rotateY(360deg)",
+                "transition-duration": "1s"
+            };
         }
-        casillasMostradas = false;
-        for (let i = 0; i < arrayCasillas.length; i++) {
-            setTimeout(function () {
-                $casilla = obtenerCasilla(arrayCasillas[i][0], arrayCasillas[i][1]);
-                $casilla.fadeIn(i * duracion + 100, function () {
-                    $(this).addClass(clase);
-                    if (arrayCasillas[i][2] !== 0 && arrayCasillas[i][2] !== "x")
-                        $(this).text(arrayCasillas[i][2]);
-                });
-            }, i * duracion + 100);
+        longitudArrayCasillas = arrayCasillas.length;
+        setCasillasMostradas(false);
+        for (let i = 0; i < longitudArrayCasillas; i++) {
+            $casilla = obtenerCasilla(arrayCasillas[i][0], arrayCasillas[i][1]);
+            $casilla.delay(i * duracion).addClass(clase, duracion, "easeInOutBounce",function(){
+                $(this).css(efectoSecundario);
+            });
+            if (arrayCasillas[i][2] !== 0 && arrayCasillas[i][2] !== "x")
+                $casilla.text(arrayCasillas[i][2]);
         }
         buscaminas.casillasAMostrar = [];
         comprobarFinalPartida(arrayCasillas.length * duracion + 500);
         setTimeout(function () {
-            casillasMostradas = true;
-        }, arrayCasillas.length * duracion + 600);
+            setCasillasMostradas(true)
+        }, longitudArrayCasillas * duracion + 1500);
+    }
 
+    function setCasillasMostradas(valor) {
+        casillasMostradas = valor
     }
 
     function mostrarBandera(fila, columna) {
         if (buscaminas.tablero2[fila][columna] == "B")
-            obtenerCasilla(fila, columna).addClass("casillaConBandera");
+            obtenerCasilla(fila, columna).addClass("casillaConBandera",300,"easeInOutBounce");
         else
-            obtenerCasilla(fila, columna).removeClass("casillaConBandera");
+            obtenerCasilla(fila, columna).removeClass("casillaConBandera",300,"easeInBack");
         $marcadorBanderas.text("Banderas disponibles: " + buscaminas.banderas);
     }
 
@@ -419,7 +433,7 @@
     function comprobarFinalPartida(tiempo) {
         if (buscaminas.partidaFinalizada) {
             buscaminas.pararCronometroSiEstaActivo();
-            let $muestraFinal = $("#muestraFinal");
+            
             let efecto;
             let color;
             if (buscaminas.casillasPorDescubrir === 0) {
