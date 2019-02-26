@@ -4,7 +4,7 @@
     nombre: [/([a-zA-Z]{3,}\s?){1,3}/, "Mínimo un nombre de tres caracteres."],
     apellidos: [/([a-zA-Z]{3,}\s?){1,3}/, "Mínimo un apellido de tres caracteres."],
     email: [/^[\w]{2,}\.?[\w]*@{1}[\w]+[\.\w]/i, "Formato correo no válido."],
-    mensaje: [/(\w){10,}/, "Mínimo 10 caracteres."]
+    mensaje: [/(.){10,}/, "Mínimo 10 caracteres."]
   }
 
   let tester = {
@@ -64,9 +64,10 @@
 
     function enviarFormulario() {
       $.ajax({
-        url: "https://alesjora.github.io/temas/tema6/pluginParaFormulario/fichero.txt",
+        url: "autor.txt",
         success: function (response) {
           $("#mensaje").val(response);
+
         },
         fail: function () {  
           console.log("error");
