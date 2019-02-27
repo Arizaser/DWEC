@@ -283,10 +283,8 @@
         $contenedorBuscaminas = $("#contenedorBuscaminas");
         $("button").click(function (e) {
             e.preventDefault();
-            if (!cambiarNivel)
-                return;
-            setPuedeCambiarNivel(false);
             let [filas, columnas] = init($(this).prop("id"));
+            $("#botonesDificultad").html("<button><a href='index.html'>Volver a jugar</a></button>")
             if (filas && columnas) {
                 eliminarTableroSiExiste();
                 $muestraFinal.hide();
@@ -319,9 +317,7 @@
             $tabla.append($fila);
         }
         $contenedorBuscaminas.append($tabla);
-        $("#tablero").show("slide", function () {
-            setPuedeCambiarNivel(true);
-        });
+        $("#tablero").show("slide");
     }
 
     function clickACasilla(i, j, event) {
@@ -387,7 +383,6 @@
         let [clase, duracion, efectoSecundario] = obtenerEfectosCasillas();
 
         longitudArrayCasillas = arrayCasillas.length;
-        setPuedeCambiarNivel(false);
         for (let i = 0; i < longitudArrayCasillas; i++) {
             $casilla = obtenerCasilla(arrayCasillas[i][0], arrayCasillas[i][1]);
             $casilla.delay(i * duracion).addClass(clase, duracion, "easeInOutBounce", function () {
@@ -398,9 +393,6 @@
         }
         buscaminas.casillasAMostrar = [];
         comprobarFinalPartida(arrayCasillas.length * duracion + 500);
-        setTimeout(function () {
-            setPuedeCambiarNivel(true)
-        }, longitudArrayCasillas * duracion + 1500);
     }
 
     function obtenerEfectosCasillas() {
@@ -416,9 +408,6 @@
             }]
     }
 
-    function setPuedeCambiarNivel(valor) {
-        cambiarNivel = valor
-    }
 
     function mostrarBandera(fila, columna) {
         if (buscaminas.tablero2[fila][columna] == "B")

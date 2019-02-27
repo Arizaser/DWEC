@@ -24,6 +24,10 @@ p{
     background-color: #9F1C01;
     color: white;
 }
+button a{
+    text-decoration: none;
+    color: white;
+}
 
 .casillaSinDescubrir{
     border : 1px solid black;
