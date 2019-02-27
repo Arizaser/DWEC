@@ -1,6 +1,6 @@
 {
 
     $(function(){
-        $("form").validar();
+        $("form").examen();
     });
 }

@@ -4,7 +4,6 @@
     nombre: [/([a-zA-Z]{3,}\s?){1,3}/, "Mínimo un nombre de tres caracteres."],
     apellidos: [/([a-zA-Z]{3,}\s?){1,3}/, "Mínimo un apellido de tres caracteres."],
     email: [/^[\w]{2,}\.?[\w]*@{1}[\w]+[\.\w]/i, "Formato correo no válido."],
-    mensaje: [/(.){10,}/, "Mínimo 10 caracteres."]
   }
 
   let tester = {
@@ -13,7 +12,7 @@
     }
   }
 
-  $.fn.validar = function (estilos2) {
+  $.fn.examen = function (estilos2) {
     let estilos = {
       color: "#ff0000",
       "background-color": "#ffDEDE",
@@ -22,7 +21,7 @@
 
     $.extend(estilos, estilos2);
 
-    let $inputs = $(":input[type='text'],textarea",$(this));
+    let $inputs = $(":input[type='text']",$(this));
     let inputsErroneos = [];
     let $inputActual;
     let patron;
