@@ -1,244 +1,8 @@
 {
-    let buscaminas = {
-        filas: 0,
-        columnas: 0,
-        bombas: 0,
-        banderas: 0,
-        casillasPorDescubrir: 0,
-        tablero: [],
-        tablero2: [],
-        partidaFinalizada: false,
-        marcadorBanderas: null,
-        cronometro: null,
-        casillasAMostrar: null,
-        casillasAlrededor: null,
-        init(filas, columnas, bombas) {
-            this.filas = filas;
-            this.columnas = columnas;
-            this.bombas = bombas;
-            this.banderas = bombas;
-            this.casillasPorDescubrir = (filas * columnas) - bombas;
-            this.partidaFinalizada = false;
-            this.casillasAMostrar = [];
-            this.casillasAlrededor = [],
-                crearTableroArray();
-            crearBombasYNumeros();
-            this.mostrar();
 
-            function crearTableroArray() {
-                buscaminas.tablero = new Array(buscaminas.filas);
-                for (let i = 0; i < buscaminas.filas; i++) {
-                    buscaminas.tablero[i] = [];
-                    buscaminas.tablero2[i] = [];
-                    for (let j = 0; j < buscaminas.columnas; j++) {
-                        buscaminas.tablero[i][j] = 0;
-                        buscaminas.tablero2[i][j] = 0;
-                    }
-                }
-            }
-
-            function crearBombasYNumeros() {
-                for (let i = 0; i < buscaminas.bombas; i++) {
-                    do {
-                        x = Math.floor(Math.random() * buscaminas.filas), y = Math.floor(Math.random() * buscaminas.columnas);
-                    } while (buscaminas.tablero[x][y] === "x")
-                    buscaminas.tablero[x][y] = "x";
-                    for (let j = Math.max(x - 1, 0); j <= Math.min(x + 1, buscaminas.filas - 1); j++)
-                        for (let k = Math.max(y - 1, 0); k <= Math.min(y + 1, buscaminas.columnas - 1); k++)
-                            if (buscaminas.tablero[j][k] !== "x")
-                                buscaminas.tablero[j][k] += 1;
-                }
-            }
-        },
-        mostrar() {
-            console.log("Tablero con minas");
-            console.table(this.tablero);
-        },
-        marcar(fila, columna) {
-            if (buscaminas.partidaFinalizada)
-                return "La partida ya ha acabado.";
-            let casilla = buscaminas.tablero2[fila][columna];
-            if (casilla != "B") {
-                if (buscaminas.banderas == 0)
-                    return "No puedes colocar más banderas";
-                if (casilla == 0) {
-                    buscaminas.tablero2[fila][columna] = "B";
-                    setBanderas(-1);
-                }
-            } else {
-                buscaminas.tablero2[fila][columna] = 0;
-                setBanderas(1);
-            }
-
-            function setBanderas(valor) {
-                buscaminas.banderas += valor;
-            }
-        },
-        picar(fila, columna) {
-            if (buscaminas.partidaFinalizada)
-                return "La partida ya ha acabado.";
-            let valorMostrado = buscaminas.tablero2[fila][columna];
-            if (valorMostrado !== 0)
-                return "La casilla ya ha sido picada o no existe";
-            let valor = buscaminas.tablero[fila][columna];
-            switch (valor) {
-                case 0:
-                    if (buscaminas.tablero2[fila][columna] != -1) {
-                        buscaminas.casillasPorDescubrir--;
-                        abrirVacios(fila, columna);
-                    }
-                    break;
-                case "x":
-                    obtenerTodasLasMinas(fila, columna);
-                    return "¡Has perdido al pulsar una mina!";
-                default:
-                    if (buscaminas.tablero2[fila][columna] != -1) {
-                        buscaminas.tablero2[fila][columna] = valor;
-                        buscaminas.casillasPorDescubrir--;
-                    }
-                    break;
-            }
-            buscaminas.casillasAMostrar.unshift([fila, columna, obtenerValorCasilla(fila, columna)]);
-            if (buscaminas.casillasPorDescubrir == 0) {
-                buscaminas.partidaFinalizada = true;
-                return "¡Enhorabuena, has ganado!";
-            }
-
-
-            function abrirVacios(fila, columna) {
-                if (buscaminas.tablero2[fila][columna] === 0) {
-                    buscaminas.tablero2[fila][columna] = -1;
-                    if (buscaminas.tablero[fila][columna] == 0)
-                        for (let j = Math.max(fila - 1, 0); j <= Math.min(fila + 1, buscaminas.filas - 1); j++)
-                            for (let k = Math.max(columna - 1, 0); k <= Math.min(columna + 1, buscaminas.columnas - 1); k++) {
-                                if (buscaminas.tablero[j][k] != "x") {
-                                    buscaminas.picar(j, k);
-                                }
-
-                            }
-                }
-            }
-
-            function obtenerTodasLasMinas(fila, columna) {
-                buscaminas.casillasAMostrar.push([fila, columna, obtenerValorCasilla(fila, columna)]);
-                for (let i = 0; i < buscaminas.tablero.length; i++) {
-                    for (let j = 0; j < buscaminas.tablero[i].length; j++) {
-                        if (buscaminas.tablero[i][j] == "x" && buscaminas.tablero2[i][j] != "B") {
-                            buscaminas.tablero2[i][j] = "x";
-                            buscaminas.casillasAMostrar.push([i, j, obtenerValorCasilla(i, j)]);
-                        }
-                    }
-                }
-                buscaminas.partidaFinalizada = true;
-            }
-
-            function obtenerValorCasilla(fila, columna) {
-                return buscaminas.tablero[fila][columna];
-            }
-        },
-        despejar(fila, columna) {
-            if (buscaminas.tablero2[fila][columna] == "0") {
-                return "No puedes despejar una casilla tapada";
-            }
-            let filas = buscaminas.filas - 1;
-            let columnas = buscaminas.columnas - 1;
-            buscaminas.casillasAlrededor = [];
-            let numBanderas = buscaminas.calcularNumeroBanderas(fila, columna, filas, columnas);
-            if (numBanderas == buscaminas.tablero2[fila][columna]) {
-                buscaminas.casillasAlrededor = [];
-                if (fila != 0)
-                    if (buscaminas.tablero2[fila - 1][columna] == 0) {
-                        picar(fila - 1, columna);
-                    }
-                if (fila != filas)
-                    if (buscaminas.tablero2[fila + 1][columna] == 0) {
-                        picar(fila + 1, columna);
-                    }
-                if (columna != columnas)
-                    if (buscaminas.tablero2[fila][columna + 1] == 0) {
-                        picar(fila, columna + 1);
-                    }
-                if (columna != 0)
-                    if (buscaminas.tablero2[fila][columna - 1] == 0) {
-                        picar(fila, columna - 1);
-                    }
-                if (columna !== 0 && fila !== filas)
-                    if (buscaminas.tablero2[fila + 1][columna - 1] == 0) {
-                        picar(fila + 1, columna - 1);
-                    }
-                if (fila != 0 && columna != 0)
-                    if (buscaminas.tablero2[fila - 1][columna - 1] == 0) {
-                        picar(fila - 1, columna - 1);
-                    }
-                if (fila != filas && columna != columnas)
-                    if (buscaminas.tablero2[fila + 1][columna + 1] == 0) {
-                        picar(fila + 1, columna + 1);
-                    }
-                if (fila != 0 && columna != columnas)
-                    if (buscaminas.tablero2[fila - 1][columna + 1] == 0) {
-                        picar(fila - 1, columna + 1);
-                    }
-            }
-        },
-        calcularNumeroBanderas(fila, columna, filas, columnas) {
-            let numBanderas = 0;
-            if (fila != 0) {
-                if (buscaminas.tablero2[fila - 1][columna] === "B")
-                    numBanderas++;
-                else
-                    buscaminas.casillasAlrededor.push([fila - 1, columna]);
-            }
-            if (fila != filas) {
-                if (buscaminas.tablero2[fila + 1][columna] === "B")
-                    numBanderas++;
-                else
-                    buscaminas.casillasAlrededor.push([fila + 1, columna]);
-            }
-            if (columna != columnas) {
-                if (buscaminas.tablero2[fila][columna + 1] === "B")
-                    numBanderas++;
-                else
-                    buscaminas.casillasAlrededor.push([fila, columna + 1]);
-            }
-            if (columna != 0) {
-                if (buscaminas.tablero2[fila][columna - 1] === "B")
-                    numBanderas++;
-                else
-                    buscaminas.casillasAlrededor.push([fila, columna - 1]);
-            }
-            if (columna !== 0 && fila !== filas) {
-                if (buscaminas.tablero2[fila + 1][columna - 1] === "B")
-                    numBanderas++;
-                else
-                    buscaminas.casillasAlrededor.push([fila + 1, columna - 1]);
-            }
-            if (fila != 0 && columna != 0) {
-                if (buscaminas.tablero2[fila - 1][columna - 1] === "B")
-                    numBanderas++;
-                else
-                    buscaminas.casillasAlrededor.push([fila - 1, columna - 1]);
-            }
-            if (fila != filas && columna != columnas) {
-                if (buscaminas.tablero2[fila + 1][columna + 1] === "B")
-                    numBanderas++;
-                else
-                    buscaminas.casillasAlrededor.push([fila + 1, columna + 1]);
-            }
-            if (fila != 0 && columna != columnas) {
-                if (buscaminas.tablero2[fila - 1][columna + 1] === "B")
-                    numBanderas++;
-                else
-                    buscaminas.casillasAlrededor.push([fila - 1, columna + 1]);
-            }
-            return numBanderas;
-        },
-        pararCronometroSiEstaActivo() {
-            if (buscaminas.cronometro != null) {
-                clearInterval(buscaminas.cronometro);
-                buscaminas.cronometro = null;
-            }
-        },
-    }
+    let $contenedorBuscaminas;
+    let $muestraFinal;
+    let $marcadorBanderas;
 
     function init(dificultad) {
         switch (dificultad) {
@@ -256,28 +20,6 @@
         }
     }
 
-    function mostrar() {
-        buscaminas.mostrar();
-    }
-
-    function picar(fila, columna) {
-        console.log(buscaminas.picar(fila, columna));
-
-    }
-
-    function marcar(fila, columna) {
-        console.log(buscaminas.marcar(fila, columna));
-
-    }
-
-    function despejar(fila, columna) {
-        console.log(buscaminas.despejar(fila, columna));
-    }
-
-    let $contenedorBuscaminas;
-    let $muestraFinal;
-    let $marcadorBanderas;
-    let cambiarNivel = true;
     $(function () {
         $muestraFinal = $("#muestraFinal");
         $contenedorBuscaminas = $("#contenedorBuscaminas");
@@ -288,10 +30,10 @@
             if (filas && columnas) {
                 eliminarTableroSiExiste();
                 $muestraFinal.hide();
-                if (!cronometro)
+                if (!buscaminas.getCronometro())
                     crearCronometro();
+                cronometro.resetearCronometro();
                 buscaminas.pararCronometroSiEstaActivo();
-                resetearCronometro();
                 crearMarcadorBanderas();
                 crearTableroGrafico(filas, columnas);
             }
@@ -321,22 +63,22 @@
     }
 
     function clickACasilla(i, j, event) {
-        if (!buscaminas.cronometro)
-            buscaminas.cronometro = setInterval(mostrarReloj, 1000);
+        if (!buscaminas.getCronometro())
+            buscaminas.setCronometro(setInterval(cronometro.calcularTiempo, 1000));
         event.preventDefault();
         switch (event.buttons) {
             case 1:
-                picar(i, j)
+                buscaminas.picar(i, j)
                 mostrarCasillas();
                 break;
             case 2:
-                marcar(i, j);
+                buscaminas.marcar(i, j);
                 mostrarBandera(i, j);
                 break;
             case 3:
             case 4:
-                despejar(i, j);
-                if (buscaminas.casillasAlrededor.length !== 0)
+                buscaminas.despejar(i, j);
+                if (buscaminas.getCasillasAlrededor().length !== 0)
                     enfatizarCasillasAlrededor(obtenerCasilla(i, j));
                 else
                     mostrarCasillas();
@@ -353,50 +95,42 @@
     }
 
     function enfatizarCasillasAlrededor(casillaPulsada) {
-        let arrayCasillas = buscaminas.casillasAlrededor;
-        let casillasFiltradas = [];
         let clase = "casillaAlrededor";
-        for (let i = 0; i < arrayCasillas.length; i++) {
-            if (buscaminas.tablero2[arrayCasillas[i][0]][arrayCasillas[i][1]] === 0)
-                casillasFiltradas.push(obtenerCasilla(arrayCasillas[i][0], arrayCasillas[i][1]));
-        }
-        casillasFiltradas.forEach(element => {
-            element.fadeIn(100, function () {
-                $(this).addClass(clase);
-            });
+        let $casillasAlrededor = $(buscaminas.getCasillasAlrededor());
+
+        $casillasAlrededor.fadeIn(100, function () {
+            $(this).addClass(clase);
         });
 
         casillaPulsada.on("mouseup mouseleave", function () {
-            casillasFiltradas.forEach(element => {
-                element.fadeIn(100, function () {
-                    $(this).removeClass(clase);
-                });
+            $casillasAlrededor.fadeIn(100, function () {
+                $(this).removeClass(clase);
             });
-            casillaPulsada.off("mouseup mouseleave");
         });
-        buscaminas.casillasAlrededor = [];
+        //casillaPulsada.off("mouseup mouseleave");
+        buscaminas.restablecerCasillasAlrededor();
     }
 
     function mostrarCasillas() {
         let $casilla;
-        let arrayCasillas = buscaminas.casillasAMostrar;
+        let arrayCasillas = buscaminas.getCasillasAMostrar();
         let [clase, duracion, efectoSecundario] = obtenerEfectosCasillas();
 
-        longitudArrayCasillas = arrayCasillas.length;
-        for (let i = 0; i < longitudArrayCasillas; i++) {
-            $casilla = obtenerCasilla(arrayCasillas[i][0], arrayCasillas[i][1]);
-            $casilla.delay(i * duracion).addClass(clase, duracion, "easeInOutBounce", function () {
+        $.each(arrayCasillas, function (index) { 
+            $casilla = obtenerCasilla(arrayCasillas[index][0], arrayCasillas[index][1]);
+            $casilla.delay(index * duracion).addClass(clase, duracion, "easeInOutBounce", function () {
                 $(this).css(efectoSecundario);
             });
-            if (arrayCasillas[i][2] !== 0 && arrayCasillas[i][2] !== "x")
-                $casilla.text(arrayCasillas[i][2]);
-        }
-        buscaminas.casillasAMostrar = [];
+            if (arrayCasillas[index][2] !== 0 && arrayCasillas[index][2] !== "x")
+                $casilla.text(arrayCasillas[index][2]);
+        });
+
+        buscaminas.restablecerCasillasAMostrar();
         comprobarFinalPartida(arrayCasillas.length * duracion + 500);
     }
 
     function obtenerEfectosCasillas() {
-        if (buscaminas.partidaFinalizada && buscaminas.casillasPorDescubrir != 0)
+        if (buscaminas.isPartidaFinalizada() && buscaminas.getCasillasPorDescubrir() != 0)
             return ["casillaConBomba", 150, {
                 "transform": "rotate(360deg)",
                 "transition-duration": "0.3s"
@@ -410,11 +144,11 @@
 
 
     function mostrarBandera(fila, columna) {
-        if (buscaminas.tablero2[fila][columna] == "B")
-            obtenerCasilla(fila, columna).addClass("casillaConBandera", 300, "easeInOutBounce");
+        if (buscaminas.getTablero2()[fila][columna] == "B")
+            obtenerCasilla(fila, columna).addClass("casillaConBandera", 300, "easeInElastic");
         else
             obtenerCasilla(fila, columna).removeClass("casillaConBandera", 300, "easeInBack");
-        $marcadorBanderas.text("Banderas disponibles: " + buscaminas.banderas);
+        $marcadorBanderas.text("Banderas disponibles: " + buscaminas.getBanderas());
     }
 
     function obtenerCasilla(fila, columna) {
@@ -422,12 +156,12 @@
     }
 
     function comprobarFinalPartida(tiempo) {
-        if (buscaminas.partidaFinalizada) {
+        if (buscaminas.isPartidaFinalizada()) {
             buscaminas.pararCronometroSiEstaActivo();
 
             let efecto;
             let color;
-            if (buscaminas.casillasPorDescubrir === 0) {
+            if (buscaminas.getCasillasPorDescubrir() === 0) {
                 $("#textoFinal").text("¡Enhorabuena, has ganado!");
                 efecto = "puff";
                 color = "#25D366"
@@ -447,13 +181,13 @@
         let $cronometroElement = $("<p>");
         $cronometroElement.prop("id", "cronometro");
         $contenedorBuscaminas.append($cronometroElement);
-        cronometro = document.getElementById("cronometro");
+        cronometro.setCronometro($("#cronometro"));
     }
 
     function crearMarcadorBanderas() {
         $marcadorBanderas = $("<p>");
         $marcadorBanderas.prop("id", "marcadorBanderas");
-        $marcadorBanderas.text("Banderas disponibles: " + buscaminas.banderas);
+        $marcadorBanderas.text("Banderas disponibles: " + buscaminas.getBanderas());
         $contenedorBuscaminas.append($marcadorBanderas);
     }
 
