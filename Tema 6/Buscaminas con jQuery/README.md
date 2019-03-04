@@ -21,14 +21,14 @@ else
 Una vez que se han asignado los efectos y tiempos, el método [mostrarCasilla()](https://github.com/iesgrancapitan-dwec/Buscaminas-JoseRafaelAlvarez/blob/819ae4aff661cdb05584072a6b9ab35faddcd689/js/main.js#L384) recorre las casillas y se los aplica.
 
 ```javascript
-for (let i = 0; i < longitudArrayCasillas; i++) {
-  $casilla = obtenerCasilla(arrayCasillas[i][0], arrayCasillas[i][1]);
-  $casilla.delay(i * duracion).addClass(clase, duracion, "easeInOutBounce",function(){
-    $(this).css(efectoSecundario);
+$.each(arrayCasillas, function (index) { 
+   $casilla = obtenerCasilla(arrayCasillas[index][0], arrayCasillas[index][1]);
+   $casilla.delay(index * duracion).addClass(clase, duracion, "easeInOutBounce", function () {
+      $(this).css(efectoSecundario);
    });
-  if (arrayCasillas[i][2] !== 0 && arrayCasillas[i][2] !== "x")
-   $casilla.text(arrayCasillas[i][2]);
-}
+   if (arrayCasillas[index][2] !== 0 && arrayCasillas[index][2] !== "x")
+      $casilla.text(arrayCasillas[index][2]);
+});
 ```
 
 ### Click derecho
@@ -48,21 +48,21 @@ Al hacer click con ambos botones puede pasar dos cosas:
 1. Se puede despejar alrededor ya que las banderas están colocadas. Este caso lo gestiona el [mostrarCasilla()](https://github.com/iesgrancapitan-dwec/Buscaminas-JoseRafaelAlvarez/blob/819ae4aff661cdb05584072a6b9ab35faddcd689/js/main.js#L384) anteriormente explicado.
 2. No se puede despejar ya que las banderas no están colocadas. Este caso lo gestiona el [enfatizarCasillasAlrededor()](https://github.com/iesgrancapitan-dwec/Buscaminas-JoseRafaelAlvarez/blob/819ae4aff661cdb05584072a6b9ab35faddcd689/js/main.js#L359).
 
+El siguiente código se aplicará mientras los botones estén pulsados, es decir, para ver las casillas resaltadas hay que mantener los dos botones pulsados. En el momento que los soltemos se desactivará el efecto.
+
 ```javascript
-casillasFiltradas.forEach(element => {
- element.fadeIn(100, function () {
-  $(this).addClass(clase);
- });
+let clase = "casillaAlrededor";
+let $casillasAlrededor = $(buscaminas.getCasillasAlrededor());
+
+$casillasAlrededor.fadeIn(100, function () {
+   $(this).addClass(clase);
 });
 
 casillaPulsada.on("mouseup mouseleave", function () {
-  casillasFiltradas.forEach(element => {
-   element.fadeIn(100, function () {
-    $(this).removeClass(clase);
+   $casillasAlrededor.fadeIn(100, function () {
+      $(this).removeClass(clase);
    });
 });
-casillaPulsada.off("mouseup mouseleave");
-
 ```
 ### Ganar y perder
 Lo gestiona el método [comprobarFinalPartida()](https://github.com/iesgrancapitan-dwec/Buscaminas-JoseRafaelAlvarez/blob/819ae4aff661cdb05584072a6b9ab35faddcd689/js/main.js#L435) que establece los efectos dependiendo de si ha ganado o ha perdido.
@@ -77,4 +77,11 @@ if (buscaminas.casillasPorDescubrir === 0) {
   color = "#F96546";
 }
 ```
+Finalmente se asignan dichos efectos y colores.
 
+```javascript
+setTimeout(function () {
+   $muestraFinal.css("background-color", color);
+   $muestraFinal.show(efecto);
+}, tiempo);
+```
